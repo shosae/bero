@@ -3,6 +3,11 @@ __pycache__/
 *.py[codz]
 *$py.class
 
+#ros2
+/install
+/build
+/log
+
 # C extensions
 *.so
 
