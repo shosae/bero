@@ -1,0 +1,51 @@
+name: ROS2 CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-22.04
+    container:
+      image: ros:humble
+
+    steps:
+      # 1.Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          submodules: recursive   
+      
+      # 2.Checkout rplidar ros2 branch 
+      - name: Switch rplidar_ros to ros2 branch
+        run: |
+          cd src/bero_drivers/bero_lidar
+          git fetch origin ros2
+          git checkout FETCH_HEAD
+
+      # 3.의존성 설치 (rosdep)
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          rosdep update
+          rosdep install --from-paths src --ignore-src -r -y
+
+      # 4.colcon build
+      - name: Build packages
+        run: |
+          source /opt/ros/humble/setup.sh
+          colcon build
+
+      # 5.colcon test
+      - name: Run tests
+        run: |
+          source install/setup.sh
+          colcon test --event-handlers console_direct+
+
+      # 6.test result 확인
+      - name: Test result
+        run: |
+          colcon test-result --verbose
