@@ -1,4 +1,4 @@
-[submodule "src/bero_lidar"]
-	path = src/bero_lidar
+[submodule "src/bero_drivers/rplidar"]
+	path = src/bero_drivers/rplidar
 	url = https://github.com/Slamtec/rplidar_ros.git
 	branch = ros2
