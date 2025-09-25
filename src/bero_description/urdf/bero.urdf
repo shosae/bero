@@ -1,0 +1,235 @@
+<?xml version="1.0"?>
+<robot name="bero">
+
+<material name="yellow">
+    <color rgba="1 1 0 1.0"/>
+</material>
+<material name="silver">
+    <color rgba="0.75 0.75 0.75 1.0"/>
+</material>
+<material name="black">
+    <color rgba="0 0 0 1.0"/>
+</material>
+<material name="gray">
+    <color rgba="0.5 0.5 0.5 1.0"/>
+</material>
+
+    <link name="base_link">
+        <inertial>
+            <origin xyz="0.0 0.0 0.05" rpy="0.0 0.0 0.0"/>
+            <mass value="1.0"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+        <visual>
+            <geometry>
+                <cylinder radius="0.145" length="0.05"/>
+            </geometry>
+            <origin xyz="0.0 0.0 0.05" rpy="0.0 0.0 0.0"/>
+            <material name="yellow"/>
+        </visual>        
+    </link>
+
+    <link name="lower_frame">
+        <inertial>
+            <origin xyz="0.0 0.0 0" rpy="0.0 0.0 0.0"/>
+            <mass value="1.0"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+        <visual>
+            <geometry>
+                <cylinder radius="0.01" length="0.1"/>
+            </geometry>
+            <origin xyz="-0.0612 0 0" rpy="0.0 0.0 0.0"/>
+            <material name="silver"/>
+        </visual>
+        <visual>
+            <geometry>
+                <cylinder radius="0.01" length="0.1"/>
+            </geometry>
+            <origin xyz="0.06 -0.07 0" rpy="0.0 0.0 0.0"/>
+            <material name="silver"/>
+        </visual>
+        <visual>
+            <geometry>
+                <cylinder radius="0.01" length="0.1"/>
+            </geometry>
+            <origin xyz="0.06 0.07 0" rpy="0.0 0.0 0.0"/>
+            <material name="silver"/>
+        </visual>    
+    </link>
+
+    <link name="plate_link">
+        <inertial>
+            <origin xyz="0.0 0.0 0" rpy="0.0 0.0 0.0"/>
+            <mass value="1.0"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+        <visual>
+            <geometry>
+                <cylinder radius="0.12" length="0.02"/>
+            </geometry>
+            <origin xyz="0.0 0.0 0.1" rpy="0.0 0.0 0.0"/>
+            <material name="silver"/>
+        </visual>          
+    </link>    
+
+    <link name="upper_frame">
+        <inertial>
+            <origin xyz="0.0 0.0 0" rpy="0.0 0.0 0.0"/>
+            <mass value="1.0"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+        <visual>
+            <geometry>
+                <cylinder radius="0.01" length="0.1"/>
+            </geometry>
+            <origin xyz="0.07 -0.07 0" rpy="0.0 0.0 0.0"/>
+            <material name="silver"/>
+        </visual>
+        <visual>
+            <geometry>
+                <cylinder radius="0.01" length="0.1"/>
+            </geometry>
+            <origin xyz="-0.07 -0.07 0" rpy="0.0 0.0 0.0"/>
+            <material name="silver"/>
+        </visual>
+        <visual>
+            <geometry>
+                <cylinder radius="0.01" length="0.1"/>
+            </geometry>
+            <origin xyz="0.07 0.07 0" rpy="0.0 0.0 0.0"/>
+            <material name="silver"/>
+        </visual>
+        <visual>
+            <geometry>
+                <cylinder radius="0.01" length="0.1"/>
+            </geometry>
+            <origin xyz="-0.07 0.07 0" rpy="0.0 0.0 0.0"/>
+            <material name="silver"/>
+        </visual>        
+    </link>
+
+    <link name="upper_link">
+        <inertial>
+            <origin xyz="0.0 0.0 0" rpy="0.0 0.0 0.0"/>
+            <mass value="1.0"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+        <visual>
+            <geometry>
+                <cylinder radius="0.115" length="0.03"/>
+            </geometry>
+            <origin xyz="0.0 0.0 0.1" rpy="0.0 0.0 0.0"/>
+            <material name="black"/>
+        </visual>             
+    </link>
+
+    <link name="laser">
+        <visual>
+            <geometry>
+                <cylinder radius="0.03" length="0.02"/>
+            </geometry>
+            <material name="yellow"/>
+        </visual>
+        <inertial>
+            <mass value="0.1"/>
+            <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
+        </inertial>
+    </link>
+
+    <link name="wheel_link_left">
+        <inertial>
+            <origin xyz="0.0 0.0 0" rpy="0.0 0.0 0.0"/>
+            <mass value="1.0"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+        <visual>
+            <geometry>
+                <cylinder radius="0.041" length="0.0265"/>
+            </geometry>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <material name="gray"/>
+        </visual> 
+    </link>
+
+    <link name="wheel_link_right">
+        <inertial>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <mass value="1.0"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+        <visual>
+            <geometry>
+                <cylinder radius="0.041" length="0.0265"/>
+            </geometry>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <material name="gray"/>
+        </visual> 
+    </link>
+
+    <link name="wheel_link_back">
+        <inertial>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <mass value="1.0"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+        <visual>
+            <geometry>
+                <cylinder radius="0.041" length="0.0265"/>
+            </geometry>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <material name="gray"/>
+        </visual> 
+    </link>
+
+    <joint name="lower_joint" type="fixed">
+        <origin xyz="0.0 0.0 0.1" rpy="0.0 0.0 0.0"/>
+        <parent link="base_link"/>
+        <child link="lower_frame"/>
+    </joint>
+    <joint name="plate_joint" type="fixed">
+        <origin xyz="0.0 0.0 -0.05" rpy="0.0 0.0 0.0"/>
+        <parent link="lower_frame"/>
+        <child link="plate_link"/>
+    </joint>
+
+    <joint name="upper_joint" type="fixed">
+        <origin xyz="0.0 0.0 0.15" rpy="0.0 0.0 0.0"/>
+        <parent link="plate_link"/>
+        <child link="upper_frame"/>
+    </joint>
+
+    <joint name="top_joint" type="fixed">
+        <origin xyz="0.0 0.0 -0.05" rpy="0.0 0.0 0.0"/>
+        <parent link="upper_frame"/>
+        <child link="upper_link"/>
+    </joint>
+
+    <joint name="laser_joint" type="fixed">
+        <parent link="upper_link"/>
+        <child link="laser"/>
+        <origin xyz="0.05 0.0 0.12" rpy="0.0 0.0 3.14159"/>
+    </joint>
+    
+    <joint name="wheel_joint_back" type="continuous">
+        <parent link="base_link"/>
+        <child link="wheel_link_back"/>
+        <origin xyz="-0.1465 0.0 0.05" rpy="0.0 1.5708 3.14159"/>
+        <axis xyz="0.0 0.0 1.0"/>	    
+    </joint>
+
+    <joint name="wheel_joint_right" type="continuous">
+        <parent link="base_link"/>
+        <child link="wheel_link_right"/>
+        <origin xyz="0.07325 -0.1269 0.05" rpy="1.5708 0 0.5236"/>
+        <axis xyz="0.0 0.0 1.0"/>
+    </joint>
+
+    <joint name="wheel_joint_left" type="continuous">
+        <parent link="base_link"/>
+        <child link="wheel_link_left"/>
+        <origin xyz="0.07325 0.1269 0.05" rpy="1.5708 0 -0.5236"/>
+        <axis xyz="0.0 0.0 -1.0"/>	    
+    </joint>
+
+</robot>
