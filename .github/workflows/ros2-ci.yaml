@@ -22,7 +22,7 @@ jobs:
       # 2.Checkout rplidar ros2 branch 
       - name: Switch rplidar_ros to ros2 branch
         run: |
-          cd src/bero_drivers/bero_lidar
+          cd src/bero_drivers/rplidar
           git fetch origin ros2
           git checkout FETCH_HEAD
 
