@@ -21,6 +21,7 @@ setup(
     entry_points={
         'console_scripts': [
             'omni_drive_ctrl = bero_teleop.omni_drive_controller:main'
+            'keyboard_ctrl = bero_teleop.keyboard_ctrl:main'
         ],
     },
 )
