@@ -22,18 +22,18 @@ class ImuPublisherNode(Node):
 
         # ---------------- Declare Parameter ----------------
         # EKF에서 사용되지 않는 항목이 무시되도록 1e3으로 크게 설정
-        self.declare_parameter("orientation_covariance_diagonal", [1e3, 1e3, 0.001])  # yaw만 사용
-        self.declare_parameter("angular_velocity_covariance_diagonal", [1e3, 1e3, 0.001])  # gz만 사용
-        self.declare_parameter("linear_acceleration_covariance_diagonal", [1e3, 1e3, 1e3])
+        self.declare_parameter("rpy_cov_diag", [1e3, 1e3, 0.001])  # yaw만 사용
+        self.declare_parameter("gyro_cov_diag", [1e3, 1e3, 0.001])  # gz만 사용
+        self.declare_parameter("accel_cov_diag", [1e3, 1e3, 1e3])
 
         # ---------------- Get Parameter ----------------
-        self.orientation_cov_diag = self.get_parameter("orientation_covariance_diagonal").value
-        self.ang_vel_cov_diag = self.get_parameter("angular_velocity_covariance_diagonal").value
-        self.lin_acc_cov_diag = self.get_parameter("linear_acceleration_covariance_diagonal").value
+        self.orientation_cov_diag = self.get_parameter("rpy_cov_diag").value
+        self.ang_vel_cov_diag = self.get_parameter("gyro_cov_diag").value
+        self.lin_acc_cov_diag = self.get_parameter("accel_cov_diag").value
 
         # ---------------- IMU & Publisher Initialization ----------------
         self.pub = self.create_publisher(Imu, "/imu/data", 10)
-        self.imu = popImu("can0", "500000")
+        self.imu = popImu("can0", 500000)
         self.imu.callback(self.imu_cb, repeat=1)
 
         self.get_logger().info("IMU publisher started")
@@ -113,9 +113,12 @@ def main(args=None):
     node = ImuPublisherNode()
     try:
         rclpy.spin(node)
+    except KeyboardInterrupt:
+        pass
     finally:
         node.destroy_node()
-        rclpy.shutdown()
+        if rclpy.ok():
+            rclpy.shutdown()
 
 
 if __name__ == "__main__":
