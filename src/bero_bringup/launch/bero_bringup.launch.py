@@ -58,7 +58,7 @@ def generate_launch_description():
             )
         )
     )
-    
+
     return LaunchDescription([
         imu_publisher_node,
         joint_state_publisher_node,
