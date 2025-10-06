@@ -22,6 +22,7 @@ class OdometryPublisherNode(Node):
     /wheel/odom 토픽으로 발행
     publish_tf 파라미터가 True일 경우 odom->base_link TF도 발행
     """
+
     def __init__(self):
         super().__init__("odometry_publisher")
 
@@ -149,7 +150,7 @@ class OdometryPublisherNode(Node):
         odom.pose.pose.position.x = self.x
         odom.pose.pose.position.y = self.y
         odom.pose.pose.orientation = yaw_to_quat(self.yaw)
-        
+
         # Pose covariance (diagonal only)
         odom.pose.covariance = [0.0] * 36
         for i, v in enumerate(self.pose_cov_diag):
