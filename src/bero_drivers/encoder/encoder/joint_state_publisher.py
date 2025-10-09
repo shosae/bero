@@ -38,7 +38,7 @@ class JointStatePublisherNode(Node):
         super().__init__("joint_state_publisher")
 
         # ---------------- Configuration ----------------
-        self.cpr = 1875.0  # CPR(바퀴축 기준, 모든 바퀴 동일하게 1875.0)
+        self.cpr = 1950.0  # CPR(바퀴축 기준, 모든 바퀴 동일하게 1875.0)
         self.joint_names = [
             "wheel_joint_left",
             "wheel_joint_right",
@@ -53,7 +53,7 @@ class JointStatePublisherNode(Node):
 
         # ---------------- Encoder & Publisher Initialization ----------------
         self.joint_state_pub = self.create_publisher(JointState, "/joint_states", 10)
-        self.encoder = Encoder("can0", "500000")
+        self.encoder = Encoder("can0", 500000)
         self.encoder.callback(self.encoder_cb, repeat=1)
 
         self.get_logger().info("Joint state publisher started")
