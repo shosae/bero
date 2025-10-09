@@ -38,7 +38,7 @@ class JointStatePublisherNode(Node):
         super().__init__("joint_state_publisher")
 
         # ---------------- Configuration ----------------
-        self.cpr = 1950.0  # CPR(바퀴축 기준, 모든 바퀴 동일하게 1875.0)
+        self.cpr = 1950.0  # CPR(바퀴축 기준, 모든 바퀴 동일하게 1950.0)
         self.joint_names = [
             "wheel_joint_left",
             "wheel_joint_right",
@@ -60,23 +60,22 @@ class JointStatePublisherNode(Node):
 
     # encoder callback
     def encoder_cb(self, data: tuple[int, int, int, int]) -> None:
+        """encoder 센서로부터 메시지를 수신할 때마다 /joint_states를 계산하고 발행."""
         staus, e1, e2, e3 = data
         now_steady = self.steady_clock.now()
-
-        # JointState 메시지 생성
-        msg = JointState()
-        msg.header.stamp = self.get_clock().now().to_msg()
+        time_stamp = self.get_clock().now().to_msg()
 
         # 첫 콜백 초기화
         if self.last_callback_time is None:
             self.last_ticks = (e1, e2, e3)
             self.last_callback_time = now_steady
             return
-
+        
+        # 이전 콜백과의 시간 간격(s) 계산 
         dt_duration = now_steady - self.last_callback_time
         dt_sec = dt_duration.nanoseconds / 1e9
 
-        # 속도 값이 비정상적으로 튀는 현상 방지
+        # 비정상적으로 짧은 주기 방지
         if dt_sec < 1e-6:
             return
 
@@ -86,7 +85,7 @@ class JointStatePublisherNode(Node):
             wrap_around(ticks[i], self.last_ticks[i]) for i in range(len(ticks))
         ]
 
-        # ticks, 시간 저장
+        # 현재 ticks, 시각 저장 (다음 loop에서 참조)
         self.last_ticks = ticks
         self.last_callback_time = now_steady
 
@@ -101,7 +100,16 @@ class JointStatePublisherNode(Node):
         for i in range(3):
             self.wheel_positions[i] += delta_angles[i]
 
-        # Encoder 메시지 발행
+        # 디버그 로그 출력
+        self.get_logger().debug(f"velocities: {velocities}")
+        self.get_logger().debug(f"wheel_positions: {self.wheel_positions}")
+
+        # 계산된 joint 정보 발행
+        self.publish_joint(velocities, time_stamp)
+
+    def publish_joint(self, velocities, time_stamp):
+        msg = JointState()
+        msg.header.stamp = time_stamp
         msg.name = self.joint_names
         msg.position = self.wheel_positions
         msg.velocity = velocities
@@ -121,9 +129,12 @@ def main(args=None):
     node = JointStatePublisherNode()
     try:
         rclpy.spin(node)
+    except KeyboardInterrupt:
+        pass
     finally:
         node.destroy_node()
-        rclpy.shutdown()
+        if rclpy.ok():
+            rclpy.shutdown()
 
 
 if __name__ == "__main__":
