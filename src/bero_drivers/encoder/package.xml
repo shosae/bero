@@ -4,7 +4,7 @@
   <name>encoder</name>
   <version>0.0.0</version>
   <description>TODO: Package description</description>
-  <maintainer email="phone13324@gmail.com">sho</maintainer>
+  <maintainer email="phone13324@gmail.com">shosae</maintainer>
   <license>TODO: License declaration</license>
 
   <test_depend>ament_copyright</test_depend>
