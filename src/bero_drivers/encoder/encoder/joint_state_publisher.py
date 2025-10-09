@@ -60,7 +60,7 @@ class JointStatePublisherNode(Node):
 
     # encoder callback
     def encoder_cb(self, data: tuple[int, int, int, int]) -> None:
-        """encoder 센서로부터 메시지를 수신할 때마다 /joint_states를 계산하고 발행."""
+        """엔코더 센서로부터 메시지를 수신할 때마다 /joint_states를 계산하고 발행."""
         staus, e1, e2, e3 = data
         now_steady = self.steady_clock.now()
         time_stamp = self.get_clock().now().to_msg()
@@ -70,8 +70,8 @@ class JointStatePublisherNode(Node):
             self.last_ticks = (e1, e2, e3)
             self.last_callback_time = now_steady
             return
-        
-        # 이전 콜백과의 시간 간격(s) 계산 
+
+        # 이전 콜백과의 시간 간격(s) 계산
         dt_duration = now_steady - self.last_callback_time
         dt_sec = dt_duration.nanoseconds / 1e9
 
