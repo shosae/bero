@@ -110,8 +110,8 @@ class OdometryPublisherNode(Node):
         self.last_callback_time = now_steady
 
         # 정기구학 기반 body 기준 속도 계산(120° 배치 기준)
-        vx = (-self.sin[0] * v1 - self.sin[1] * v2 - self.sin[2] * v3) / 3.0
-        vy = (self.cos[0] * v1 + self.cos[1] * v2 + self.cos[2] * v3) / 3.0
+        vx = (-self.sin[0] * v1 - self.sin[1] * v2 - self.sin[2] * v3) / 1.5
+        vy = (self.cos[0] * v1 + self.cos[1] * v2 + self.cos[2] * v3) / 1.5
         wz = (v1 + v2 + v3) / (3.0 * self.R)
 
         # dt_sec 동안 base_link 기준 이동 거리 및 회전량
