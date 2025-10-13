@@ -61,8 +61,8 @@ class KeyboardControllerNode(Node):
 
         # ---------------- Declare Parameter ----------------
         # 초기 선, 각속도 지정
-        self.declare_parameter("lin_vel", 0.35)
-        self.declare_parameter("ang_vel", 2.5)
+        self.declare_parameter("lin_vel", 0.28)
+        self.declare_parameter("ang_vel", 1.58)
 
         # ---------------- Get Parameter ----------------
         self.lin_vel = self.get_parameter("lin_vel").value
@@ -110,8 +110,8 @@ class KeyboardControllerNode(Node):
         elif key in SPEED_BINDINGS:  # 속도, 최대속도 클램핑
             self.lin_vel *= SPEED_BINDINGS[key][0]
             self.ang_vel *= SPEED_BINDINGS[key][1]
-            self.lin_vel = max(0.13, min(self.lin_vel, 0.7))
-            self.ang_vel = max(0.4, min(self.ang_vel, 4.15))
+            self.lin_vel = max(0.08, min(self.lin_vel, 0.49))
+            self.ang_vel = max(0.29, min(self.ang_vel, 2.87))
             self.print_status()
         elif key == "s":  # 정지
             self.target_vx = 0.0
