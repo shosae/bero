@@ -5,7 +5,7 @@ slam_toolbox:
     # -------------------------
     map_frame: map
     odom_frame: odom
-    base_frame: base_link
+    base_frame: base_footprint
     scan_topic: /scan
 
     # LiDAR 유효 거리, 스펙(0.05~40m)보다 보수적으로 설정
