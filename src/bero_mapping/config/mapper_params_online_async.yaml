@@ -9,20 +9,19 @@ slam_toolbox:
     scan_topic: /scan
 
     # LiDAR 유효 거리, 스펙(0.05~40m)보다 보수적으로 설정
-    min_laser_range: 0.2
-    max_laser_range: 20.0
+    min_laser_range: 0.15
+    max_laser_range: 12.0
 
 
     # -------------------------
     # 맵 / 버퍼 / publish 설정
     # -------------------------
-    resolution: 0.025         # 맵 격자 한 변의 길이(m), rplidar s3의 분해능(10 mm)보다 2.5배 큰 25mm로 설정
-    occupancy_threshold: 0.2  # 맵 격자의 점유 확률이 0.2(20%) 이상이면 장애물로 간주
-    throttle_scans: 1         # 스캔 메시지 처리 빈도(1이면 입력 모두, 2면 2개 중 1개만)
+    resolution: 0.05     # 맵 격자 한 변의 길이(m), 0.05m
+    occupancy_threshold: 0.3  # (hit/pass) 비율이 0.3(30%) 이상이면 장애물로 간주
+    throttle_scans: 1         # (sync에서만) 스캔 메시지 처리 빈도(1이면 입력 모두, 2면 2개 중 1개만)
     scan_queue_size: 1        # 스캔 메시지를 버퍼에 몇 개까지 저장할지
 
-    map_update_interval: 0.5        # 로봇의 위치 추정 결과(스캔 매칭)에 따라 맵을 갱신하는 주기(s)
-    map_publish_period: 0.5         # 갱신된 맵을 /map 토픽으로 퍼블리시하는 주기(s)
+    map_update_interval: 0.2     # 로봇의 위치 추정 결과(스캔 매칭)에 따라 맵을 갱신하는 주기(s)
     transform_publish_period: 0.05  # map→odom tf를 발행하는 주기(s)
     transform_timeout: 0.2          # 스캔 메시지에 해당하는 tf를 0.2초 안에 얻지 못하면 해당 스캔을 폐기(s)
 
@@ -30,14 +29,14 @@ slam_toolbox:
     # -------------------------
     # 업데이트 조건 (새로운 노드 생성)
     # -------------------------
-    minimum_travel_distance: 0.1  # 0.1m 이상 이동했을 때마다 업데이트(m)
-    minimum_travel_heading: 0.15  # 0.15rad(약 8.6°) 회전할 때마다 업데이트(rad)
+    minimum_travel_distance: 0.05  # 0.05m 이상 이동했을 때마다 업데이트(m)
+    minimum_travel_heading: 0.05  # 0.05rad(약 2.9°) 회전할 때마다 업데이트(rad)
 
 
     # -------------------------
     # 스캔 매칭, loop closure 설정
     # -------------------------
     use_scan_matching: true    # scan matching 알고리즘을 사용하여 로봇의 위치 추정(local)
-    use_scan_barycenter: true  # 스캔 점들의 중심 위치를 기반으로 상대 이동량 계산
-    do_loop_closing: true      # loop closure 보정
+    use_scan_barycenter: false  # true: barycenter 사용, false: scan pose 사용
+    do_loop_closing: false      # loop closure 보정
     loop_search_maximum_distance: 3.0  # 과거 포즈와 3m 이내면 loop closure 매칭 시도(map)
