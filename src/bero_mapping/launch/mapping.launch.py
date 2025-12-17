@@ -15,7 +15,7 @@ def generate_launch_description():
         'config',
         'mapper_params_online_async.yaml',
     )
-    
+
     bero_bringup_launch_file = os.path.join(
         pkg_bero_bringup,
         'launch',
