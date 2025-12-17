@@ -7,17 +7,23 @@ from ament_index_python.packages import get_package_share_directory
 
 
 def generate_launch_description():
-
-    bero_bringup_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([
-            os.path.join(get_package_share_directory('bero_bringup'), 'launch', 'bero_bringup.launch.py')
-        ])
-    )
+    pkg_bero_mapping = get_package_share_directory('bero_mapping')
+    pkg_bero_bringup = get_package_share_directory('bero_bringup')
 
     mapping_config = os.path.join(
-        get_package_share_directory('bero_mapping'),
+        pkg_bero_mapping,
         'config',
-        'mapper_params_online_async.yaml'
+        'mapper_params_online_async.yaml',
+    )
+    
+    bero_bringup_launch_file = os.path.join(
+        pkg_bero_bringup,
+        'launch',
+        'bero_bringup.launch.py',
+    )
+
+    bero_bringup_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([bero_bringup_launch_file])
     )
 
     async_slam_toolbox_node = Node(
@@ -25,7 +31,7 @@ def generate_launch_description():
         executable='async_slam_toolbox_node',
         name='slam_toolbox',
         output='screen',
-        parameters=[mapping_config]
+        parameters=[mapping_config],
     )
 
     return LaunchDescription([
