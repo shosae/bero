@@ -1,6 +1,7 @@
 ekf_odom:
   ros__parameters:
     frequency: 30.0
+    sensor_timeout: 0.2
     two_d_mode: true
     publish_tf: true
 
@@ -30,5 +31,5 @@ ekf_odom:
                     false, false, false]  # ax ay az
     imu0_differential: false
     imu0_relative: false
-    imu0_queue_size: 30
+    imu0_queue_size: 100
     imu0_nodelay: true

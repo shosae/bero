@@ -28,7 +28,7 @@ class OdometryPublisherNode(Node):
 
         # ---------------- Declare Parameter ----------------
         self.declare_parameter("odom_frame", "odom")
-        self.declare_parameter("base_frame", "base_link")
+        self.declare_parameter("base_frame", "base_footprint")
         self.declare_parameter("odom_topic", "/wheel/odom")
 
         # EKF 등 TF를 외부에서 발행할 경우 False로 설정
